@@ -36,17 +36,7 @@ const productSchema = mongoose.Schema(
         message: "unit value can't be {VALUE}, must be kg, litre, pcs",
       },
     },
-    validate: {
-      validator: (value) => {
-        const isInterger = Number.isInterger(value);
-        if (isInterger) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      message: "Quantity must be integer",
-    },
+
     status: {
       type: String,
       required: true,
@@ -55,7 +45,22 @@ const productSchema = mongoose.Schema(
         message: "status can't be {VALUE}",
       },
     },
-    suplliers: {
+    quantity: {
+      type: Number,
+      required: true,
+      validate: {
+        validator: (value) => {
+          const isInteger = Number.isInteger(value);
+          if (isInteger) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+      },
+      message: "quantity must be interger",
+    },
+    /*  suplliers: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Supllier",
     },
@@ -67,7 +72,7 @@ const productSchema = mongoose.Schema(
         },
         _id: mongoose.Schema.Types.ObjectId,
       },
-    ],
+    ], */
     // createdAt: {
     //   type: Date,
     //   default: Date.now,
@@ -81,8 +86,29 @@ const productSchema = mongoose.Schema(
 );
 
 // timesStamps ture kore, dile, createdAt and UpdateAt auto pawya jay mongoose ei sudbida ta ache... moluto eta ekta option, _id: false jodi kono kichu na pai
+
+// schema>model>query
+
+// const Product = mongoose.Model("Product", productSchema); //this is model
+
+const Product = mongoose.model("Product", productSchema);
+
 app.get("/", (req, res) => {
   res.send("Route is working! YaY!");
+});
+
+app.post("/api/v1/product", async (req, res, next) => {
+  try {
+    console.log(req.body);
+    // 2 away we can add data in database , SAVE and Create
+    const product = new Product(req.body);
+    console.log(product);
+    product.save();
+
+    res.status(200).json({ status: "success" });
+  } catch (error) {
+    res.send({ success: "fail", error: "faild to add product" });
+  }
 });
 
 module.exports = app;
