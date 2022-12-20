@@ -2,6 +2,9 @@ const Product = require("../models/products.model");
 const {
   productService,
   createProductService,
+  updateProductService,
+  blunkUpdateProductService,
+  deleteProductByIdService,
 } = require("../service/product.service");
 
 exports.getProducts = async (req, res, next) => {
@@ -16,7 +19,7 @@ exports.getProducts = async (req, res, next) => {
     });
   } catch (error) {
     res.status(400).json({
-      success: "fail",
+      status: "fail",
       error: error.message,
     });
   }
@@ -41,8 +44,61 @@ exports.createProduct = async (req, res, next) => {
     });
   } catch (error) {
     res.send({
-      success: "fail",
+      status: "fail",
       error: "faild to add product",
+      error: error.message,
+    });
+  }
+};
+
+exports.updateProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await updateProductService(id, req.body);
+    res.status(200).json({
+      status: "success",
+      messsage: "update product successfull",
+      data: result,
+    });
+  } catch (error) {
+    res.send({
+      status: "fail",
+      error: "faild to update product",
+      error: error.message,
+    });
+  }
+};
+
+exports.blunkUpdateProduct = async (req, res, next) => {
+  try {
+    const result = await blunkUpdateProductService(req.body);
+    res.status(200).json({
+      status: "success",
+      messsage: "update product successfull",
+      data: result,
+    });
+  } catch (error) {
+    res.send({
+      status: "fail",
+      error: "faild to update product",
+      error: error.message,
+    });
+  }
+};
+
+exports.deleteProductByIdController = async (req, res, next) => {
+  try {
+    const result = await deleteProductByIdService(req.params.id);
+
+    res.status(200).json({
+      status: "success",
+      messsage: "update product successfull",
+      data: result,
+    });
+  } catch (error) {
+    res.send({
+      status: "fail",
+      error: "faild to update product",
       error: error.message,
     });
   }
