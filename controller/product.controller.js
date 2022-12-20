@@ -1,13 +1,12 @@
 const Product = require("../models/products.model");
+const {
+  productService,
+  createProductService,
+} = require("../service/product.service");
 
 exports.getProducts = async (req, res, next) => {
   try {
-    const result = await Product.where("name")
-      .equals(/\w/)
-      .where("quantity")
-      .gt(10)
-      .limit(3);
-
+    const result = await productService();
     // const result = await Product.findById("63a09fdc2cd270a071ddfd0e");
 
     res.status(200).json({
@@ -29,11 +28,11 @@ exports.createProduct = async (req, res, next) => {
     /*    const products = new Product(req.body);
     const result = await products.save(); */
 
-    const product = Product(req.body);
+    /*    const product = Product(req.body);
     product.anyCounter();
-    const result = await product.save();
+    const result = await product.save(); */
 
-    // const result = await Product.create(req.body);
+    const result = await createProductService(req.body);
 
     res.status(200).json({
       status: "success",
