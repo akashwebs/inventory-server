@@ -79,3 +79,23 @@ exports.logIn = async (req, res, next) => {
     });
   }
 };
+
+exports.getMe = async (req, res) => {
+  try {
+    const user = await findUserByEmail(req?.user?.email);
+
+    const { password, ...others } = user.toObject();
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        data: others,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "fail",
+      error,
+    });
+  }
+};
