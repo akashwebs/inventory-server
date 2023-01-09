@@ -1,9 +1,14 @@
-const mongoose = require("mongoose");
+/* const mongoose = require("mongoose");
 
 const { ObjectId } = mongoose.Schema.Types;
 
-const productSchema = mongoose.Schema(
+const stockSchema = mongoose.Schema(
   {
+    productId: {
+      type: ObjectId,
+      require: true,
+      ref: "Product",
+    },
     name: {
       type: String,
       required: [true, "please provide a name for this product"],
@@ -48,6 +53,16 @@ const productSchema = mongoose.Schema(
         },
       },
     ],
+    price: {
+      type: Number,
+      required: true,
+      min: [0, "Product price can not negative "],
+    },
+    quantity: {
+      type: Number,
+      required: true,
+      min: [0, "product quantity can not negative "],
+    },
     category: {
       type: String,
       required: true,
@@ -67,13 +82,48 @@ const productSchema = mongoose.Schema(
       required: true,
       enum: {
         values: ["in-stock", "out-of-stock", "discontinued"],
-        message: "status can't be {VALUE}",
+        message: "status can't be{VALUE}",
+      },
+    },
+    store: {
+      name: {
+        type: String,
+        required: [true, "Please provide a brand name"],
+        trim: true,
+        lowercase: true,
+        enum: {
+          values: [
+            "dhaka",
+            "chattogram",
+            "rajshahi",
+            "sylhet",
+            "khulna",
+            "barishal",
+          ],
+          message: "{VALUE} is not a valid name",
+        },
+      },
+      id: {
+        type: ObjectId,
+        required: true,
+        ref: "Store",
+      },
+    },
+    suppliedBy: {
+      name: {
+        type: String,
+        trim: true,
+        required: [true, "please provide a supplier name"],
+      },
+      id: {
+        type: ObjectId,
+        ref: "Supplier",
       },
     },
   },
   { timestamps: true }
 );
-
+ */
 // timesStamps ture kore, dile, createdAt and UpdateAt auto pawya jay mongoose ei sudbida ta ache... moluto eta ekta option, _id: false jodi kono kichu na pai
 
 // schema>model>query
@@ -96,57 +146,11 @@ const productSchema = mongoose.Schema(
 });
  */
 
-// instance middleawere
-productSchema.methods.anyCounter = function () {
+/* // instance middleawere
+stockSchema.methods.anyCounter = function () {
   console.log(`name is ${this.name}`);
-};
+}; */
 
-const Product = mongoose.model("Product", productSchema);
+/* const Stock = mongoose.model("Stock", stockSchema);
 
-module.exports = Product;
-
-/* 
-  quantity validator, is integer or not
-   quantity: {
-      type: Number,
-      required: true,
-      validate: {
-        validator: (value) => {
-          const isInteger = Number.isInteger(value);
-          if (isInteger) {
-            return true;
-          } else {
-            return false;
-          }
-        },
-      },
-      message: "quantity must be interger",
-    },
-
-
-
-    
-
- */
-
-/*  suplliers: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Supllier",
-    },
-    categories: [
-      {
-        name: {
-          type: String,
-          required: true,
-        },
-        _id: mongoose.Schema.Types.ObjectId,
-      },
-    ], */
-// createdAt: {
-//   type: Date,
-//   default: Date.now,
-// },
-// updatedAt: {
-//   type: Date,
-//   default: Date.now,
-// },
+module.exports = Stock; */

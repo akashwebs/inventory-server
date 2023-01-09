@@ -3,6 +3,7 @@ const router = express.Router();
 const productController = require("../controller/product.controller");
 
 router.route("/blunk-update").patch(productController.blunkUpdateProduct);
+router.route("/bulk-delete").delete(productController.blunkDeleteController);
 
 router
   .route("/")

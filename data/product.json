@@ -1,0 +1,32 @@
+[
+    {
+  "name": "chanachur big packet",
+  "description": "This is a great product",
+  "unit": "1 kg",
+  "imageURLs": [
+    "http://example.com/image1.jpg",
+    "http://example.com/image2.jpg"
+  ],
+  "category": "foods",
+  "brand": {
+    "name": "pran",
+    "id": "63bbf79c7450fea18ce234eb"
+  },
+  "status": "in-stock"
+},
+    {
+  "name": "Product A",
+  "description": "This is a great product",
+  "unit": "kg",
+  "imageURLs": [
+    "http://example.com/image1.jpg",
+    "http://example.com/image2.jpg"
+  ],
+  "category": "grocery",
+  "brand": {
+    "name": "Brand A",
+    "id": "5f3d1fde24a7e45b0b9f9c20"
+  },
+  "status": "in-stock"
+}
+]
